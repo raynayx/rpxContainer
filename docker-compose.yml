@@ -1,0 +1,11 @@
+# version: "4.0"
+services:
+  rp2xxx:
+    build: .
+    image: rpi/pico_jlink
+    volumes:
+      - ./:/root/dev/:rw
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+# volumes:
+  
