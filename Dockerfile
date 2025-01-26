@@ -80,7 +80,7 @@ RUN cd /root/opt/ &&\
     dnf install -y ./JLink_V798h.rpm &&\
     rm JLink_V*
 
-# RUN dnf install -y arm-none-eabi-newlib
     
 RUN cd /root/dev/
 ENV PICO_SDK_PATH=/root/opt/pico-sdk/
+ENV CMAKE_CXX_COMPILER=/root/opt/arm-none-eabi/bin/arm-none-eabi-g++
