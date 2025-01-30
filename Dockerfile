@@ -9,7 +9,8 @@ ENV TZ=Africa/Accra
 # Download Linux support tools
 RUN dnf update -y
 
-RUN dnf groupinstall -y "Development Tools"
+# RUN dnf groupinstall -y "Development Tools" &&\
+#     dnf clean all
 
 # Install g++ and dependencies
 RUN dnf install -y \
@@ -21,16 +22,15 @@ RUN dnf install -y \
     cmake \
     vim \
     ninja-build \
-    xz
-
-# JLink dependencies 
-RUN dnf install -y libXrandr \
+    xz &&\
+    #
+    # JLink dependencies 
+    #
+    dnf install -y libXrandr \
     libXfixes \
     libXcursor \
-    ncurses-compat-libs \
-    @base-x  
-
-RUN dnf clean all
+    ncurses-compat-libs &&\
+    dnf clean all
 
 ARG MAIN_USER=rpx
 ARG MAIN_HOME=/home/${MAIN_USER}
@@ -40,12 +40,12 @@ RUN useradd -m ${MAIN_USER}
 
 #Download JLink_V798h.rpm
 # RUN curl -o /home/opt/JLink_V798h.rpm --data "accept_license_agreement=accepted" https://www.segger.com/downloads/jlink/JLink_Linux_V798h_x86_64.rpm
-ARG JLINK_BIN=JLink_V798h.rpm
+ARG JLINK_BIN=JLink_V812d.rpm
 COPY ${JLINK_BIN} ${MAIN_HOME}/opt/
 
 #install JLink tools
 RUN cd ${MAIN_HOME}/opt/ &&\
-    dnf install -y ./${JLINK_BIN} &&\
+    dnf install -y --disablerepo=* ./${JLINK_BIN} &&\
     rm ${JLINK_BIN}
 
   
@@ -63,7 +63,7 @@ RUN cd ${MAIN_HOME}/opt/ && \
 ENV PATH=$PATH:${MAIN_HOME}/opt/arm-none-eabi/bin/
 
 
-# Clone and setup the RP2040 SDK
+# Clone and setup the RP2040(PICO) SDK
 RUN git clone https://github.com/raspberrypi/pico-sdk ${MAIN_HOME}/opt/pico-sdk/
 
 RUN cd ${MAIN_HOME}/opt/pico-sdk/ &&\
