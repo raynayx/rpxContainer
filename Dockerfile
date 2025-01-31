@@ -2,15 +2,11 @@ FROM fedora:40
 
 ENV REFRESHED_AT=2025-01-28
 
-# Add timezone info and that we are not interactive
-# so that cmake installs without prompts. 
+# Add timezone info  
 ENV TZ=Africa/Accra
 
-# Download Linux support tools
+# Update base
 RUN dnf update -y
-
-# RUN dnf groupinstall -y "Development Tools" &&\
-#     dnf clean all
 
 # Install g++ and dependencies
 RUN dnf install -y \
@@ -38,8 +34,8 @@ ARG MAIN_HOME=/home/${MAIN_USER}
 
 RUN useradd -m ${MAIN_USER}
 
-#Download JLink_V798h.rpm
-# RUN curl -o /home/opt/JLink_V798h.rpm --data "accept_license_agreement=accepted" https://www.segger.com/downloads/jlink/JLink_Linux_V798h_x86_64.rpm
+#Download JLink_V812d.rpm
+# RUN curl -o /home/opt/JLink_V7812d.rpm --data "accept_license_agreement=accepted" https://www.segger.com/downloads/jlink/JLink_Linux_V798h_x86_64.rpm
 ARG JLINK_BIN=JLink_V812d.rpm
 COPY ${JLINK_BIN} ${MAIN_HOME}/opt/
 
@@ -50,7 +46,7 @@ RUN cd ${MAIN_HOME}/opt/ &&\
 
   
 # Download and install RP2040 Toolchains
-# RUN curl -o /root/opt/arm-none-eabi-14.tar.xz \
+# RUN curl -o ~/opt/arm-none-eabi-14.tar.xz \
 # https://developer.arm.com/-/media/Files/downloads/gnu/14.2.rel1/binrel/arm-gnu-toolchain-14.2.rel1-x86_64-arm-none-eabi.tar.xz
 
 #Copy and install arm-none-eabi-toolchain
@@ -87,6 +83,5 @@ ENV CMAKE_CXX_COMPILER=${MAIN_HOME}/opt/arm-none-eabi/bin/arm-none-eabi-g++
 
 #Set the dev directory
 WORKDIR ${MAIN_HOME}/dev/
-
 
 USER ${MAIN_USER}  
