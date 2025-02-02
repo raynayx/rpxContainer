@@ -35,8 +35,8 @@ ARG MAIN_HOME=/home/${MAIN_USER}
 RUN useradd -m ${MAIN_USER}
 
 #Download JLink_V812d.rpm
-# RUN curl -o /home/opt/JLink_V7812d.rpm --data "accept_license_agreement=accepted" https://www.segger.com/downloads/jlink/JLink_Linux_V798h_x86_64.rpm
-ARG JLINK_BIN=JLink_V812d.rpm
+# RUN curl -o ${MAIN_HOME}/opt/JLink.rpm --data "accept_license_agreement=accepted" https://www.segger.com/downloads/jlink/JLink_Linux_x86_64.rpm
+ARG JLINK_BIN=JLink.rpm
 COPY ${JLINK_BIN} ${MAIN_HOME}/opt/
 
 #install JLink tools

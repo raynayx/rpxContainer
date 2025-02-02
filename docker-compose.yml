@@ -4,7 +4,7 @@ services:
     build: .
     image: rpi/pico_jlink
     volumes:
-      - ./:/root/dev/:rw
+      - ./:/home/rpx/dev/:rw
     devices:
       - /dev/bus/usb:/dev/bus/usb
 # volumes:
