@@ -40,7 +40,7 @@ The container uses the [Invoke](https://www.pyinvoke.org/) tool for managing tas
 At the terminal, type `invoke -l` or `inv -l` to see a list of the tasks defined in the `tasks.py` 
 defined in your project.
 
-There's a sample tasks.py file defined [here](https://github.com/raynayx/rpxPrj) as an example.
+There's a sample `tasks.py` file defined [here](https://github.com/raynayx/rpxPrj) as an example.
 ### Build firmware in the container from the terminal
 ```bash
 invoke build
